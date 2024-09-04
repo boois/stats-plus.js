@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>stats_plus.js - three.js InstancedMesh example</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				margin: 0px;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="../build/stats.min.js"></script>
+		<script src="./three.min.js"></script>
+		<script>
+
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+
+			var stats = new Stats(scene,renderer);
+			stats.showPanel( 0 );
+			document.body.appendChild(stats.dom);
+
+			var geometry = new THREE.BoxGeometry();
+			var count = 100; // 实例数量
+			var material = new THREE.MeshPhongMaterial(); // 使用MeshPhongMaterial以支持实例化颜色
+			var mesh = new THREE.InstancedMesh(geometry, material, count); // 创建实例化网格
+
+			var dummy = new THREE.Object3D();
+			for (var i = 0; i < count; i++) {
+				dummy.position.set(
+					(Math.random() - 0.5) * 30,
+					(Math.random() - 0.5) * 30,
+					(Math.random() - 0.5) * 30
+				);
+				dummy.updateMatrix();
+				mesh.setMatrixAt(i, dummy.matrix); // 设置每个实例的位置
+
+				// 为每个实例设置不同颜色
+				var color = new THREE.Color(Math.random(), Math.random(), Math.random());
+				mesh.setColorAt(i, color);
+			}
+			scene.add(mesh); // 将实例化网格添加到场景中
+
+			// 添加光源以使颜色可见
+			var light = new THREE.PointLight(0xffffff, 1, 100);
+			light.position.set(0, 0, 10);
+			scene.add(light);
+			var ambientLight = new THREE.AmbientLight(0x404040,2); // 创建环境光，颜色为灰色
+			scene.add(ambientLight); // 将环境光添加到场景中
+
+			camera.position.z = 50;
+
+			var rotationSpeeds = new Float32Array(count * 3);
+			for (var i = 0; i < count; i++) {
+				rotationSpeeds[i * 3] = Math.random() * 0.02 - 0.01;
+				rotationSpeeds[i * 3 + 1] = Math.random() * 0.02 - 0.01;
+				rotationSpeeds[i * 3 + 2] = Math.random() * 0.02 - 0.01;
+			}
+
+			function animate() {
+				requestAnimationFrame(animate);
+
+				stats.begin();
+
+				var rotationMatrix = new THREE.Matrix4();
+				var tempMatrix = new THREE.Matrix4();
+
+				for (var i = 0; i < count; i++) {
+					mesh.getMatrixAt(i, tempMatrix);
+					rotationMatrix.makeRotationX(rotationSpeeds[i * 3]);
+					tempMatrix.multiply(rotationMatrix);
+					rotationMatrix.makeRotationY(rotationSpeeds[i * 3 + 1]);
+					tempMatrix.multiply(rotationMatrix);
+					rotationMatrix.makeRotationZ(rotationSpeeds[i * 3 + 2]);
+					tempMatrix.multiply(rotationMatrix);
+					mesh.setMatrixAt(i, tempMatrix);
+				}
+				mesh.instanceMatrix.needsUpdate = true;
+
+				renderer.render(scene, camera);
+
+				stats.end();
+			}
+
+			animate();
+
+		</script>
+	</body>
+</html>

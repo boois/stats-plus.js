@@ -11,14 +11,6 @@ This class provides a simple info box that will help you monitor your code perfo
 * **CUSTOM** User-defined panel support.
 
 
-### Screenshots ###
-
-![fps.png](https://raw.githubusercontent.com/mrdoob/stats.js/master/files/fps.png)
-![ms.png](https://raw.githubusercontent.com/mrdoob/stats.js/master/files/ms.png)
-![mb.png](https://raw.githubusercontent.com/mrdoob/stats.js/master/files/mb.png)
-![custom.png](https://raw.githubusercontent.com/mrdoob/stats.js/master/files/custom.png)
-
-
 ### Installation ###
 ```bash
 npm install stats.js
@@ -28,7 +20,7 @@ npm install stats.js
 
 ```javascript
 var stats = new Stats();
-stats.showPanel( 1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
 document.body.appendChild( stats.dom );
 
 function animate() {
