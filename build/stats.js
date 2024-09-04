@@ -25,7 +25,7 @@
 		infos.style.cssText = 'min-width:150px;display:flex;flex-direction:column;background:#111;border:1px solid #222;color:#fff;font-size:12px;padding:4px;';
 		var domHtml = "<div>FPS: <span id='-stats-i-0' style='color: #ff6600;'></span></div><div>RAM: <span id='-stats-i-1'></span></div>";
 		if(this.scene){
-			domHtml += "<div>faces: <span id='-stats-i-2'></span></div><div>objects: <span id='-stats-i-5'></span></div><div>faces: <span id='-stats-i-4'></span></div>";
+			domHtml += "<div>vertices: <span id='-stats-i-2'></span></div><div>objects: <span id='-stats-i-5'></span></div><div>faces: <span id='-stats-i-4'></span></div>";
 		}
 		if(this.renderer){
 			domHtml += "<div>drawcalls: <span id='-stats-i-3'></span></div>";
@@ -124,9 +124,9 @@
 							return count;
 						};
 						var totalObjectCount = countAllObjects(that.scene);
-						document.getElementById('-stats-i-5').innerHTML = "<span style='color: #ff6600;'>"+totalObjectCount+"</span>";
-						document.getElementById('-stats-i-2').innerHTML = "<span style='color: #ff6600;'>"+vertexCount+"</span>";
-						document.getElementById('-stats-i-4').innerHTML = "<span style='color: #ff6600;'>"+triangleCount+"</span>";
+						document.getElementById('-stats-i-5').innerHTML = "<span style='color: #ff6600;'>"+totalObjectCount.toFixed(0)+"</span>";
+						document.getElementById('-stats-i-2').innerHTML = "<span style='color: #ff6600;'>"+vertexCount.toFixed(0)+"</span>";
+						document.getElementById('-stats-i-4').innerHTML = "<span style='color: #ff6600;'>"+triangleCount.toFixed(0)+"</span>";
 					}
 					if(that.renderer){
 						document.getElementById( '-stats-i-3' ).innerHTML = "<span style='color: #ff6600;'>"+that.renderer.info.render.calls+"</span>";
