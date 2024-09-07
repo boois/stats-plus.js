@@ -1,5 +1,5 @@
 {
-  "name": "stats.js",
+  "name": "stats-plus.js",
   "version": "0.17.1",
   "description": "JavaScript Performance Monitor",
   "main": "build/stats.js",
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/mrdoob/stats.js",
   "devDependencies": {
-    "rollup": "^2.3.2",
-    "google-closure-compiler": "20200224.0.0"
+    "google-closure-compiler": "20200224.0.0",
+    "rollup": "^2.3.2"
   }
 }
