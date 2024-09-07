@@ -14,7 +14,7 @@
 		var mode = 0;
 
 		var container = document.createElement( 'div' );
-		container.style.cssText = 'position:fixed;top:0;left:0;cursor:pointer;opacity:0.9;z-index:10000';
+		container.style.cssText = 'position:fixed;top:0;left:0;cursor:pointer;opacity:0.9;z-index:10000;use-select:none;';
 		container.addEventListener( 'click', function ( event ) {
 
 			event.preventDefault();
@@ -32,8 +32,6 @@
 		}
 		infos.innerHTML = domHtml;
 		container.appendChild(infos);
-
-		//
 
 		function addPanel( panel ) {
 
